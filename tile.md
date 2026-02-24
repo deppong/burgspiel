@@ -1,8 +1,10 @@
+```
 0 1 2 3 4
 5       6
 7       8
 9       a
 b c d e f
+```
 
 ## tile1
 example definition of tile with 1 city 1 road and 2 farms
@@ -29,6 +31,7 @@ to connect the two, for example, attaching tile1 to the south edge, the connecti
 
 game state should be FULLY detached from the tile logic. When a tile is placed it updates the game state.
 This allows for pretty solid speed increases, and way less dangling pointers, etc.
+maybe a hashmap lookup table if anything. that way 
 
 ```
 game.cities {

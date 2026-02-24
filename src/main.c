@@ -7,22 +7,31 @@
 
     they also can have a meeple in different positions.
 */
-enum t_tileCenter {
-    cloister,
-    roadblock,
-    shield
+
+struct road {
+    int n1, n2;
 };
 
-enum t_tileEdge {
-    CASTLE,
-    ROAD,
-    FIELD
+struct farm {
+    int nodes[11];
+};
+
+struct city {
+    int edges[4];
 };
 
 struct tile {
-    t_tileEdge[4] edges; // always in a N E S W notation
-    //t_tileCenter centerflags;
-}
+    /*
+        0 1 2 3 4
+        5       6
+        7       8
+        9       a
+        b c d e f
+     */
+    struct road roads[4];
+    struct farm farms[4];
+    struct city cities[2];
+};
 
 int main() {
     return 0;
