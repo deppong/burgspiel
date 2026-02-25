@@ -9,6 +9,7 @@ typedef enum {
     ROAD,
     FARM
 } feat_type_t;
+static const char *feat_type_string[] = {"CITY","ROAD","FARM",};
 
 // should probably make them so if you +1 mod 12 it loops over for easy rotating.
 typedef enum {
@@ -31,5 +32,9 @@ typedef struct {
      // Maximum 9 features (quad road tile)
     feature_t features[9];
 } tile_t;
+
+struct board {
+    // hashmap here?
+}; 
 
 #endif
