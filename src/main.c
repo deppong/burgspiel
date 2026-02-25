@@ -1,38 +1,53 @@
 #include <stdio.h>
+#include <stdint.h>
 
-/*
-    Tiles have different edges Castle, road, field.
-    inside they can have different values, like a blocked road,
-    cloister/monestary, or a shield (2x value)
+typedef enum {
+    CITY=1,
+    ROAD,
+    FARM
+} feat_type_t;
 
-    they also can have a meeple in different positions.
-*/
+// should probably make them so if you +1 mod 12 it loops over for easy rotating.
+typedef enum {
+    EMPTY, //hack. should be changed
+    N, E, S, W,
+    NW, NE, EN, ES,
+    SE, SW, WS, WN
+} dir_t;
+typedef struct {
+    // type
+    feat_type_t type;
+    // flags
+    uint8_t touching_city, cloister;
+    dir_t touching[9] // maximum 9 directions of specificity (farm on 3 edges);
+} feature_t;
 
-struct road {
-    int n1, n2;
-};
-
-struct farm {
-    int nodes[11];
-};
-
-struct city {
-    int edges[4];
-};
-
-struct tile {
-    /*
-        0 1 2 3 4
-        5       6
-        7       8
-        9       a
-        b c d e f
-     */
-    struct road roads[4];
-    struct farm farms[4];
-    struct city cities[2];
-};
+typedef struct {
+    // always in the order of NESW
+    feat_type_t edges[4];
+     // Maximum 9 features (quad road tile)
+    feature_t features[9];
+} tile_t;
 
 int main() {
+    // example starting tile
+
+    tile_t starting_tile = {
+        .edges = {CITY, ROAD, FARM, ROAD},
+        .features = {
+            {.type = CITY, .touching = {N}},
+            {.type = ROAD, .touching = {E, W}},
+            {.type = FARM, .touching = {EN, WN}, .touching_city=1},
+            {.type = FARM, .touching = {ES, S, WS}, .touching_city=0}
+        }
+    };
+
+    for(int i = 0; i < 9; i++) {
+        if (!starting_tile.features[i].type) break;
+        for(int j = 0; j < 9; j++) {
+            if(!starting_tile.features[i].touching[j]) break;
+            printf("%d %d\n", starting_tile.features[i].type, starting_tile.features[i].touching[j]);
+        }
+    }
     return 0;
 }
