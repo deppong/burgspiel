@@ -23,13 +23,22 @@ int main() {
         }
     };
 
-    tile_t board[2] = {starting_tile, bare_road};
+    tile_t board[31*31] = {};
+    for (int i = 0; i < 31*31; ++i) {
+        board[i] = bare_road;
+    }
 
-    for (int a = 0; a < 2; a++) {
+    #define getidxfromcoord(i,x,y) i*y+x
+
+    // each tile on board
+    for (int a = 0; a < 31*31; a++) {
         tile_t t = board[a];
         printf("tile %d: \n", a);
+    // all possible features
     for (int i = 0; i < 9; i++) {
         if (t.features[i].type == EMPTY) break;
+        printf("feature #%d:\n", i);
+        // what are the features edges?
         for (int j = 0; j < 9; j++) {
             if(t.features[i].touching[j] == EMPTY) break;
             printf("\t%s %d\n", feat_type_string[t.features[i].type], t.features[i].touching[j]);
