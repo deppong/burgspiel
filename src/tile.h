@@ -18,6 +18,8 @@ typedef enum {
     SE, SW, WS, WN
 } dir_t;
 
+static const char *dir_string[] = {"N", "E", "S", "W", "NW", "NE", "EN", "ES", "SE", "SW", "WS", "WN"};
+
 typedef struct {
     // type
     feat_type_t type;

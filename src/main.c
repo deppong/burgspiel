@@ -40,8 +40,8 @@ int main() {
         printf("feature #%d:\n", i);
         // what are the features edges?
         for (int j = 0; j < 9; j++) {
-            if(t.features[i].touching[j] == EMPTY) break;
-            printf("\t%s %d\n", feat_type_string[t.features[i].type], t.features[i].touching[j]);
+            if(t.features[i].touching[j] == EMPTY) {printf("\n");break;}
+            printf("\t%s %s\n", feat_type_string[t.features[i].type], dir_string[t.features[i].touching[j]]);
         }
     }
     }
